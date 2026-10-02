@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-font-size="md">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('pref-theme');if(t==='light'||t==='dark'){d.setAttribute('data-theme',t);}var f=localStorage.getItem('pref-font-size');if(f==='sm'||f==='md'||f==='lg'||f==='xl'){d.setAttribute('data-font-size',f);}}catch(e){}})();</script>
+<title>Ma Files Engine: test your plan against Jack Ma's story</title>
+<meta name="description" content="Describe your business and see which parts of Jack Ma's rise and fall apply to you, with a concrete next step.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/css/engine.css">
+<script src="/assets/js/prefs.js" defer></script>
+<script src="/assets/js/engine.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#chat-input">Skip to the chat</a>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/engine">Ma Files Engine</a>
+    <nav class="nav-links" aria-label="Pages">
+      <a href="/">Guide</a>
+      <a href="/engine" aria-current="page">Engine</a>
+    </nav>
+    <div class="prefs" role="group" aria-label="Display settings">
+      <div class="size-group" role="group" aria-label="Text size">
+        <button type="button" class="pref-btn" data-font-size-set="sm" aria-pressed="false" aria-label="Text size small">A</button>
+        <button type="button" class="pref-btn" data-font-size-set="md" aria-pressed="true" aria-label="Text size medium, selected">A</button>
+        <button type="button" class="pref-btn" data-font-size-set="lg" aria-pressed="false" aria-label="Text size large">A</button>
+        <button type="button" class="pref-btn" data-font-size-set="xl" aria-pressed="false" aria-label="Text size extra large">A</button>
+      </div>
+      <button type="button" class="pref-btn theme-btn" data-theme-toggle aria-pressed="true" aria-label="Switch to light theme"><span class="theme-icon" aria-hidden="true"></span><span class="theme-text">Light</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="chip">Built on The Ma Files guide</p>
+    <h1>Where would Ma's path <span class="grad">trip up your plan?</span></h1>
+    <p class="sub">Describe what you're building. The engine asks a few questions, then matches your plan to the parts of Jack Ma's story that apply and gives you a next step.</p>
+    <a class="chip chip-link" href="/">Read the guide first</a>
+  </section>
+
+  <section class="board" aria-label="Engine">
+    <article class="card card-chat" aria-labelledby="chat-h">
+      <div class="card-head">
+        <h2 id="chat-h">Chat</h2>
+        <button type="button" class="ghost-btn" id="reset-btn">Start over</button>
+      </div>
+      <div class="log" id="log" role="log" aria-live="polite" aria-relevant="additions"></div>
+      <form class="composer" id="composer" autocomplete="off">
+        <label class="sr-only" for="chat-input">Describe your business or answer the question</label>
+        <textarea id="chat-input" rows="3" maxlength="1500" placeholder="Example: I run a local business directory and want to add bookings and payments later, without outside investors."></textarea>
+        <div class="composer-actions">
+          <button type="button" class="mic-btn" id="mic-btn" aria-pressed="false" aria-label="Start voice input" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.93V21h2v-3.07A7 7 0 0 0 19 11h-2z"/></svg>
+          </button>
+          <button type="submit" class="send-btn" id="send-btn">Send</button>
+        </div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </form>
+    </article>
+
+    <article class="card card-top" aria-labelledby="top-h">
+      <h2 id="top-h">Top match</h2>
+      <div id="top-match" class="top-match">
+        <p class="empty">Your closest lesson from Ma's story shows up here after the engine has enough detail.</p>
+      </div>
+    </article>
+
+    <article class="card card-short" aria-labelledby="short-h">
+      <h2 id="short-h">Shortlist</h2>
+      <div class="gauge" id="gauge">
+        <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="gauge-grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#818cf8"/>
+              <stop offset="0.55" stop-color="#c084fc"/>
+              <stop offset="1" stop-color="#f472b6"/>
+            </linearGradient>
+          </defs>
+          <circle class="gauge-track" cx="60" cy="60" r="52"/>
+          <circle class="gauge-fill" id="gauge-fill" cx="60" cy="60" r="52" stroke-dasharray="0 326.73" transform="rotate(-90 60 60)"/>
+        </svg>
+        <p class="gauge-value"><span id="gauge-number">0</span><span class="gauge-unit">top score</span></p>
+      </div>
+      <ol class="shortlist" id="shortlist"></ol>
+      <p class="empty" id="short-empty">Matches are ranked by how strongly they apply to you.</p>
+    </article>
+
+    <article class="card card-details" aria-labelledby="details-h">
+      <h2 id="details-h">Listing details</h2>
+      <div id="details">
+        <p class="empty">Pick a lesson from the shortlist to see the risk, what happened to Ma, and your move.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="notes" aria-label="About this engine">
+    <p><strong>What works now:</strong> a real conversation grounded in the guide, tailored matches and a next step. Your chat stays in this browser tab only and clears when you close it.</p>
+    <p><strong>What it can't do:</strong> send email, file anything, book calls, keep accounts or save history between visits. Those need a bigger build. The chat answers only once the site owner sets the API key in Vercel.</p>
+    <p><strong>Voice input:</strong> the mic uses your browser's built-in speech recognition, so your speech may be processed by the browser maker (Google for Chrome, Apple for Safari). It fills the text box and never sends on its own.</p>
+    <p>General information, not legal or financial advice.</p>
+  </section>
+</main>
+</body>
+</html>
