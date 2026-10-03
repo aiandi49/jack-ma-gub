@@ -20,6 +20,13 @@
   var gaugeFill = document.getElementById('gauge-fill');
   var gaugeNumber = document.getElementById('gauge-number');
   var detailsEl = document.getElementById('details');
+  var tileTitle = document.getElementById('tile-title');
+  var nextStepEl = document.getElementById('next-step');
+  var countEl = document.getElementById('msg-count');
+  var countText = document.getElementById('msg-count-text');
+  var chatCard = document.getElementById('chat-card');
+  var fullBtn = document.getElementById('full-btn');
+  var fullLabel = document.getElementById('full-label');
 
   var state = { messages: [], matches: [], selected: null };
   var busy = false;
@@ -107,10 +114,17 @@
     return bubble;
   }
 
+  function renderCount() {
+    var n = state.messages.length;
+    countText.textContent = n === 0 ? 'No messages yet' : n === 1 ? '1 message' : n + ' messages';
+    countEl.classList.toggle('active', n > 0);
+  }
+
   function renderLog() {
     log.textContent = '';
     addBubble('assistant', GREETING);
     state.messages.forEach(function (m) { addBubble(m.role, m.content); });
+    renderCount();
   }
 
   function keyOf(m) { return m.id || m.title; }
@@ -123,11 +137,13 @@
   function renderTop() {
     topEl.textContent = '';
     var top = state.matches[0];
+    topEl.classList.toggle('has-match', Boolean(top));
     if (!top) {
-      topEl.appendChild(el('p', 'empty', 'Your closest lesson from Ma\'s story shows up here after the engine has enough detail.'));
+      tileTitle.textContent = 'Waiting for your first question';
+      topEl.appendChild(el('p', 'empty', 'Your closest lesson from Ma\'s story appears here once the engine has enough detail.'));
       return;
     }
-    topEl.appendChild(el('h3', 'top-title', top.title));
+    tileTitle.textContent = top.title;
     topEl.appendChild(el('p', 'score-pill', top.score + ' / 100 fit'));
     if (top.why) topEl.appendChild(el('p', 'top-why', top.why));
   }
@@ -138,7 +154,7 @@
     var score = top ? top.score : 0;
     gaugeFill.setAttribute('stroke-dasharray', (CIRCUMFERENCE * score / 100).toFixed(2) + ' ' + CIRCUMFERENCE);
     gaugeFill.setAttribute('visibility', score > 0 ? 'visible' : 'hidden');
-    gaugeNumber.textContent = String(score);
+    gaugeNumber.textContent = top ? String(score) : '\u2014';
     shortEmpty.hidden = state.matches.length > 0;
     var current = selectedMatch();
     state.matches.forEach(function (m) {
@@ -164,14 +180,20 @@
     detailsEl.textContent = '';
     var m = selectedMatch();
     if (!m) {
-      detailsEl.appendChild(el('p', 'empty', 'Pick a lesson from the shortlist to see the risk, what happened to Ma, and your move.'));
+      detailsEl.appendChild(el('h3', 'detail-title', 'Nothing selected yet'));
+      detailsEl.appendChild(el('p', 'empty', 'Ask the engine about your plan. The details of whichever match you pick land here.'));
+      nextStepEl.textContent = 'Tell the engine what you\'re building.';
       return;
     }
     detailsEl.appendChild(el('h3', 'detail-title', m.title));
     var dl = el('dl', 'detail-list');
     var rows = [['Fit', m.score + ' / 100']];
     if (m.why) rows.push(['Why it applies', m.why]);
-    Object.keys(m.details).forEach(function (k) { rows.push([k, m.details[k]]); });
+    var move = '';
+    Object.keys(m.details).forEach(function (k) {
+      if (/your move|next step/i.test(k)) { move = m.details[k]; return; }
+      rows.push([k, m.details[k]]);
+    });
     rows.forEach(function (r) {
       var div = el('div');
       div.appendChild(el('dt', null, r[0]));
@@ -181,9 +203,10 @@
     detailsEl.appendChild(dl);
     if (m.id) {
       var a = el('a', 'detail-link', 'Read this lesson in the guide');
-      a.href = '/#' + m.id;
+      a.href = '/guide#' + m.id;
       detailsEl.appendChild(a);
     }
+    nextStepEl.textContent = move || 'Answer the engine\'s next question to sharpen this match.';
   }
 
   function renderSide() { renderTop(); renderShortlist(); renderDetails(); }
@@ -205,7 +228,9 @@
     while (state.messages.length && state.messages[0].role !== 'user') state.messages.shift();
     save();
     addBubble('user', content);
+    renderCount();
     input.value = '';
+    fitInput();
     setBusy(true);
     var waiting = addBubble('assistant', 'Thinking about your plan');
     waiting.classList.add('msg-wait');
@@ -224,9 +249,11 @@
           var msg = typeof result.data.error === 'string' ? result.data.error.slice(0, 200) : 'The engine could not answer right now. Try again in a moment.';
           state.messages.pop();
           save();
+          renderCount();
           var last = log.lastElementChild;
           if (last && last.classList.contains('msg-user')) last.remove();
           input.value = content;
+        fitInput();
           setStatus(msg, true);
           return;
         }
@@ -239,19 +266,28 @@
         }
         save();
         addBubble('assistant', visible);
+        renderCount();
         renderSide();
       })
       .catch(function () {
         waiting.remove();
         state.messages.pop();
         save();
+        renderCount();
         var last = log.lastElementChild;
         if (last && last.classList.contains('msg-user')) last.remove();
         input.value = content;
+        fitInput();
         setStatus('Could not reach the engine. Check your connection and try again.', true);
       })
       .then(function () { setBusy(false); });
   }
+
+  function fitInput() {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight + 2, 144) + 'px';
+  }
+  input.addEventListener('input', fitInput);
 
   form.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -272,6 +308,23 @@
     renderLog();
     renderSide();
     input.focus();
+  });
+
+  // ----- full page chat -----
+  function setFull(on) {
+    var board = chatCard.parentNode;
+    if (on) board.style.setProperty('--chat-h', chatCard.offsetHeight + 'px');
+    board.classList.toggle('chat-full', on);
+    chatCard.classList.toggle('is-full', on);
+    fullBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    fullBtn.setAttribute('aria-label', on ? 'Exit full page chat' : 'Open the chat full page');
+    fullLabel.textContent = on ? 'Exit full page' : 'Full page';
+    log.scrollTop = log.scrollHeight;
+    if (on) input.focus(); else fullBtn.focus();
+  }
+  fullBtn.addEventListener('click', function () { setFull(!chatCard.classList.contains('is-full')); });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && chatCard.classList.contains('is-full')) setFull(false);
   });
 
   // ----- voice input -----
@@ -305,6 +358,7 @@
         var transcript = '';
         for (var i = 0; i < event.results.length; i++) transcript += event.results[i][0].transcript;
         input.value = (baseText + transcript).slice(0, MAX_CHARS);
+        fitInput();
       };
       recognizer.onerror = function (event) {
         var code = event && event.error;
@@ -339,4 +393,5 @@
   load();
   renderLog();
   renderSide();
+  fitInput();
 })();
