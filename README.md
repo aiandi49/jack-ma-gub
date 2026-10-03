@@ -47,7 +47,7 @@ No npm dependencies. Nothing to install or audit.
 
 ## What works and what doesn't
 
-**Works now:** the engine opens first at `/`, with the guide at `/guide`. Text starts at the large size (the third A); visitors can change it and their choice is remembered. A real back-and-forth conversation, one clarifying question at a time, grounded in the guide's content; tailored lesson matches with a fit score; a concrete next step shown inline; voice input in browsers that support speech recognition; a Full page button that expands the chat (Esc closes it); chat kept in `sessionStorage` (it clears when the tab closes).
+**Works now:** the engine opens first at `/`, with the guide at `/guide`. Text starts at the small size (the first A); each A to the right makes it bigger; visitors can change it and their choice is remembered. A real back-and-forth conversation, one clarifying question at a time, grounded in the guide's content; tailored lesson matches with a fit score; a concrete next step shown inline; voice input in browsers that support speech recognition; a Full page button that expands the chat (Esc closes it); chat kept in `sessionStorage` (it clears when the tab closes).
 
 **Needs a bigger build:** sending emails, saving history between visits, user accounts, bookings, or calling any outside service. The engine takes no real-world actions.
 
