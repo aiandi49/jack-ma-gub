@@ -1,131 +1,134 @@
 <!doctype html>
-<html lang="en" data-theme="light" data-font-size="md">
+<html lang="en" data-theme="dark" data-font-size="lg">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('pref-theme');if(t==='light'||t==='dark'){d.setAttribute('data-theme',t);}var f=localStorage.getItem('pref-font-size');if(f==='sm'||f==='md'||f==='lg'||f==='xl'){d.setAttribute('data-font-size',f);}}catch(e){}})();</script>
-<title>The Ma Files: how Jack Ma crossed the money line</title>
-<meta name="description" content="A verified guide to Jack Ma's rise and fall: from a business directory to Alipay, Ant's halted IPO, and what changes when a platform starts holding other people's money.">
+<title>Ma Files Engine: test your plan against Jack Ma's story</title>
+<meta name="description" content="Describe your business and see which parts of Jack Ma's rise and fall apply to you, with a concrete next step.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/css/gub.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/css/engine.css">
 <script src="/assets/js/prefs.js" defer></script>
-<script src="/assets/js/gub.js" defer></script>
+<script src="/assets/js/engine.js" defer></script>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="topbar">
-  <div class="topbar-inner">
-    <a class="brand" href="/">The Ma Files</a>
-    <nav class="nav" aria-label="Sections">
-      <a href="#money-line">Money line</a>
-      <a href="#timeline">Timeline</a>
-      <a href="#lessons">Lessons</a>
-      <a href="#claims">Fact check</a>
-      <a class="nav-engine" href="/engine">Open the engine</a>
+<a class="skip" href="#chat-input">Skip to the chat</a>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text"><span class="brand-name">The Ma Files</span><span class="brand-sub">Engine</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Pages">
+      <a href="/" aria-current="page">Engine</a>
+      <a href="/guide">Guide</a>
+      <a href="/guide#claims">Fact check</a>
     </nav>
     <div class="prefs" role="group" aria-label="Display settings">
       <div class="size-group" role="group" aria-label="Text size">
         <button type="button" class="pref-btn" data-font-size-set="sm" aria-pressed="false" aria-label="Text size small">A</button>
-        <button type="button" class="pref-btn" data-font-size-set="md" aria-pressed="true" aria-label="Text size medium, selected">A</button>
-        <button type="button" class="pref-btn" data-font-size-set="lg" aria-pressed="false" aria-label="Text size large">A</button>
+        <button type="button" class="pref-btn" data-font-size-set="md" aria-pressed="false" aria-label="Text size medium">A</button>
+        <button type="button" class="pref-btn" data-font-size-set="lg" aria-pressed="true" aria-label="Text size large, selected">A</button>
         <button type="button" class="pref-btn" data-font-size-set="xl" aria-pressed="false" aria-label="Text size extra large">A</button>
       </div>
-      <button type="button" class="pref-btn theme-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme"><span class="theme-icon" aria-hidden="true"></span><span class="theme-text">Dark</span></button>
+      <button type="button" class="pref-btn theme-btn" data-theme-toggle aria-pressed="true" aria-label="Switch to light theme"><span class="theme-icon" aria-hidden="true"></span><span class="theme-text">Light</span></button>
     </div>
   </div>
 </header>
 
-<main id="main">
+<main>
   <section class="hero">
-    <div class="wrap hero-grid">
-      <h1>He built a directory. The trouble started when it began holding the money.</h1>
-      <div class="hero-side">
-        <p class="dek" id="hero-dek">How Jack Ma went from listing Chinese businesses online to the biggest IPO that never happened, and what changes when a platform starts holding other people's money.</p>
-        <div class="hero-actions">
-          <a class="btn" href="#money-line">Walk the money line</a>
-          <a class="btn quiet" href="/engine">Test your own plan</a>
+    <p class="chip">Built on The Ma Files guide</p>
+    <h1>Where would Ma's path <span class="grad">trip up your plan?</span></h1>
+    <p class="sub">Describe what you're building. You'll get the parts of Jack Ma's story that apply to you and one next step.</p>
+    <div class="hero-links">
+      <a class="chip chip-link" href="/guide">Open the full guide</a>
+      <a class="chip chip-link" href="/guide#claims">Fact check</a>
+    </div>
+  </section>
+
+  <section class="board" aria-label="Engine">
+    <article class="card card-chat" id="chat-card" aria-labelledby="chat-h">
+      <div class="card-head">
+        <div class="card-title">
+          <h2 id="chat-h">Chat</h2>
+          <p class="card-sub">Works from the guide</p>
+        </div>
+        <div class="head-actions">
+          <button type="button" class="icon-btn" id="reset-btn" aria-label="Start over" title="Start over">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 1 0 7.73 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+          </button>
+          <button type="button" class="ghost-btn" id="full-btn" aria-pressed="false" aria-label="Open the chat full page">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9V4h5v2H6v3H4zm10-5h6v5h-2V6h-4V4zM4 15h2v3h3v2H4v-5zm14 3v-3h2v5h-6v-2h4z"/></svg>
+            <span id="full-label">Full page</span>
+          </button>
         </div>
       </div>
-    </div>
+      <p class="msg-count" id="msg-count"><span class="dot" aria-hidden="true"></span><span id="msg-count-text">No messages yet</span></p>
+      <div class="log" id="log" role="log" aria-live="polite" aria-relevant="additions"></div>
+      <form class="composer" id="composer" autocomplete="off">
+        <label class="sr-only" for="chat-input">Describe your business or answer the question</label>
+        <div class="composer-row">
+          <textarea id="chat-input" rows="1" maxlength="1500" placeholder="Type your plan"></textarea>
+          <button type="button" class="mic-btn" id="mic-btn" aria-pressed="false" aria-label="Start voice input" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.93V21h2v-3.07A7 7 0 0 0 19 11h-2z"/></svg>
+          </button>
+          <button type="submit" class="send-btn" id="send-btn">Send</button>
+        </div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+        <p class="chat-note">The conversation stays in this browser tab and clears when you close it.</p>
+      </form>
+    </article>
+
+    <article class="card card-top" aria-labelledby="top-h">
+      <h2 class="pill-label" id="top-h">Top match</h2>
+      <div class="match-tile">
+        <p class="tile-kind">Lesson</p>
+        <p class="tile-title" id="tile-title">Waiting for your first question</p>
+      </div>
+      <div id="top-match" class="top-match"></div>
+    </article>
+
+    <article class="card card-short" aria-labelledby="short-h">
+      <h2 id="short-h">Shortlist</h2>
+      <div class="gauge" id="gauge">
+        <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="gauge-grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#818cf8"/>
+              <stop offset="0.55" stop-color="#c084fc"/>
+              <stop offset="1" stop-color="#f472b6"/>
+            </linearGradient>
+          </defs>
+          <circle class="gauge-track" cx="60" cy="60" r="52"/>
+          <circle class="gauge-fill" id="gauge-fill" cx="60" cy="60" r="52" stroke-dasharray="0 326.73" transform="rotate(-90 60 60)" visibility="hidden"/>
+        </svg>
+        <p class="gauge-value"><span id="gauge-number">&#8212;</span><span class="gauge-unit">top fit</span></p>
+      </div>
+      <p class="short-help">Matches are ranked by how well they fit your plan.</p>
+      <ol class="shortlist" id="shortlist"></ol>
+      <p class="empty center" id="short-empty">No matches yet.</p>
+    </article>
+
+    <article class="card card-details" aria-labelledby="details-h">
+      <h2 id="details-h">Listing details</h2>
+      <div id="details"></div>
+      <div class="next-step">
+        <h3>Next step</h3>
+        <p id="next-step">Tell the engine what you're building.</p>
+      </div>
+    </article>
   </section>
 
-  <section class="section soft" id="money-line" aria-labelledby="money-line-h">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="money-line-h">The money line</h2>
-        <p>Each step up let Ma's companies do more for customers, and each one brought a heavier rulebook. The first two steps handle information. The last two handle money.</p>
-      </div>
-      <ol class="ladder" id="ladder"></ol>
-    </div>
-  </section>
-
-  <section class="section" id="timeline" aria-labelledby="timeline-h">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="timeline-h">What happened, in order</h2>
-        <p>Every date below was checked against news reporting or company filings. Where the source videos disagreed with the record, the record wins and the fact check says so.</p>
-      </div>
-      <div class="timeline" id="timeline-list"></div>
-    </div>
-  </section>
-
-  <section class="section soft" id="lessons" aria-labelledby="lessons-h">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="lessons-h">Lessons for a builder who wants to stay independent</h2>
-        <p>Each lesson names the risk, what it cost Ma, and a concrete move that keeps your business on the safe side.</p>
-      </div>
-      <div class="lessons" id="lesson-list"></div>
-    </div>
-  </section>
-
-  <section class="section" id="claims" aria-labelledby="claims-h">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="claims-h">Fact check on the source material</h2>
-        <p>The two videos and screenshots this guide started from mix solid reporting with errors and guesswork. Here is how each notable claim held up.</p>
-      </div>
-      <div class="table-scroll">
-        <table class="claims">
-          <thead>
-            <tr><th scope="col">Claim</th><th scope="col">Where it came from</th><th scope="col">Status</th><th scope="col">What the record shows</th></tr>
-          </thead>
-          <tbody id="claims-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section class="section soft" id="sources" aria-labelledby="sources-h">
-    <div class="wrap two-col">
-      <div>
-        <h2 id="sources-h">Sources</h2>
-        <p>Primary reporting used to verify this guide. The two source videos were treated as leads, not proof.</p>
-      </div>
-      <ul class="sources" id="source-list"></ul>
-    </div>
-  </section>
-
-  <section class="section engine-cta" aria-labelledby="cta-h">
-    <div class="wrap cta-grid">
-      <h2 id="cta-h">Where would your plan cross the line?</h2>
-      <div>
-        <p>Describe your business in a sentence or two. The engine asks a few questions, then shows which parts of Ma's story apply to you and the next step to take.</p>
-        <a class="btn" href="/engine">Open the engine</a>
-      </div>
-    </div>
+  <section class="notes" aria-label="About this engine">
+    <p><strong>What works now:</strong> a real conversation grounded in the guide, tailored matches and a next step. Your chat stays in this browser tab only and clears when you close it.</p>
+    <p><strong>What it can't do:</strong> send email, file anything, book calls, keep accounts or save history between visits. Those need a bigger build. The chat answers only once the site owner sets the API key in Vercel.</p>
+    <p><strong>Voice input:</strong> the mic uses your browser's built-in speech recognition, so your speech may be processed by the browser maker (Google for Chrome, Apple for Safari). It fills the text box and never sends on its own.</p>
+    <p>General information, not legal or financial advice.</p>
   </section>
 </main>
-
-<footer class="footer">
-  <div class="wrap">
-    <p id="disclaimer">General information for learning, not legal or financial advice. Rules differ by country and state; talk to a licensed attorney before you hold, move, or lend anyone's money.</p>
-    <p class="footer-note">Updated <span id="updated">October 2, 2026</span>. No photos of real people are reproduced here.</p>
-  </div>
-</footer>
-<noscript><p class="noscript">Turn on JavaScript to load the timeline, lessons and fact check.</p></noscript>
 </body>
 </html>

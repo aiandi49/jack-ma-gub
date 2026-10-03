@@ -34,20 +34,20 @@ Put your key in `.env.local`. That file is ignored by Git and must never be comm
 
 | Path | What it does |
 | --- | --- |
-| `index.html` | The guide: money-line ladder, timeline, lessons, fact check, sources |
-| `engine.html` | The engine: chat, top match, shortlist with score gauge, listing details |
+| `index.html` | The engine (home page at `/`): chat with full-page mode, top match, shortlist with score gauge, listing details and next step |
+| `guide.html` | The guide at `/guide`: money-line ladder, timeline, lessons, fact check, sources |
 | `data/gub.json` | All guide content: entries (id, title, summary, body, tags, details), claims, sources |
 | `api/chat.js` | Serverless function. Holds the API key, picks relevant guide entries, calls Anthropic |
 | `assets/js/prefs.js` | Theme toggle and text-size selector shared by both pages |
 | `assets/js/gub.js` | Renders the guide from `data/gub.json` |
 | `assets/js/engine.js` | Chat, voice input, MATCH parsing, side cards, session state |
-| `vercel.json` | Security headers, content-security policy, function settings |
+| `vercel.json` | Security headers, content-security policy, function settings, and a redirect from the old `/engine` address to `/` |
 
 No npm dependencies. Nothing to install or audit.
 
 ## What works and what doesn't
 
-**Works now:** a real back-and-forth conversation, one clarifying question at a time, grounded in the guide's content; tailored lesson matches with a fit score; a concrete next step shown inline; voice input in browsers that support speech recognition; chat kept in `sessionStorage` (it clears when the tab closes).
+**Works now:** the engine opens first at `/`, with the guide at `/guide`. Text starts at the large size (the third A); visitors can change it and their choice is remembered. A real back-and-forth conversation, one clarifying question at a time, grounded in the guide's content; tailored lesson matches with a fit score; a concrete next step shown inline; voice input in browsers that support speech recognition; a Full page button that expands the chat (Esc closes it); chat kept in `sessionStorage` (it clears when the tab closes).
 
 **Needs a bigger build:** sending emails, saving history between visits, user accounts, bookings, or calling any outside service. The engine takes no real-world actions.
 
@@ -62,7 +62,7 @@ No npm dependencies. Nothing to install or audit.
 - Upstream calls time out after 25 seconds (the function's limit is 30). Errors return plain, generic messages. Logs record status codes only.
 - All model and user text is displayed with `textContent`. No third-party scripts beyond Google Fonts.
 - `vercel.json` sets nosniff, a strict referrer policy, same-origin framing, a permissions policy (mic allowed for this site only), HSTS, and a content-security policy that allows only this site plus Google Fonts. The inline theme script is allowed by its SHA-256 hash.
-- If you edit the inline `<script>` in the `<head>` of either page, its hash changes and the page will stop restoring the theme. Recompute the hash and update `vercel.json`.
+- If you edit the inline `<script>` in the `<head>` of either page (`index.html` or `guide.html`), its hash changes and the page will stop restoring the theme. Recompute the hash and update `vercel.json`.
 
 ## You must do these by hand
 
