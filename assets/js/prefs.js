@@ -20,7 +20,7 @@
   }
 
   function syncSize() {
-    var current = root.getAttribute('data-font-size') || 'lg';
+    var current = root.getAttribute('data-font-size') || 'sm';
     var buttons = document.querySelectorAll('[data-font-size-set]');
     for (var i = 0; i < buttons.length; i++) {
       var b = buttons[i];
